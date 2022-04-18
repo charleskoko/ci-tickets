@@ -10,6 +10,10 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+    Public const TYPE_PRO = 'PROFESSIONAL';
+    Public const TYPE_NORMAL = 'NORMAL';
+    Public const ACCOUNT_TYPES = [self::TYPE_PRO, self::TYPE_NORMAL];
+
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -20,6 +24,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'type',
         'password',
     ];
 
