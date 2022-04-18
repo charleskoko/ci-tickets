@@ -2,11 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class RegistrationPostRequest extends FormRequest
+class EventTypePostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,14 +24,8 @@ class RegistrationPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'is_admin' => 'nullable|boolean',
-            'type' => [
-                'required',
-                Rule::in(User::ACCOUNT_TYPES),
-            ],
-            'password' => 'required|confirmed|min:8'
+            'label' => 'required',
+            'description' => 'required',
         ];
     }
 }

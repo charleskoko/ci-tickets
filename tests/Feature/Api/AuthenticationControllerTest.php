@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
-class AuthenticationTest extends TestCase
+class AuthenticationControllerTest extends TestCase
 {
     use DatabaseTransactions, WithFaker;
 
@@ -16,21 +16,31 @@ class AuthenticationTest extends TestCase
     {
         parent::setUp();
         $this->user = User::factory()->create();
+        $this->userData = $userData = [
+            'name' => $this->faker->name,
+            'email' => $this->faker->email,
+            'is_admin' => true,
+            'type' => $this->faker->randomElement(User::ACCOUNT_TYPES),
+            'password' => '12345678',
+            'password_confirmation' => '12345678',
+        ];
     }
 
     public function testUserCanCreateAnAccount()
     {
-        $userData = [
-            'name' => $this->faker->name,
-            'email' => $this->faker->email,
-            'type' => $this->faker->randomElement(User::ACCOUNT_TYPES),
-            'password' => $password = $this->faker->password,
-            'password_confirmation' => $password,
-        ];
-        $response = $this->post(route('api.v1.registration'), $userData);
+        unset($this->userData['is_admin']);
+        $response = $this->post(route('api.v1.registration'), $this->userData);
         $response->assertStatus(201);
-        unset($userData['password_confirmation'], $userData['password']);
-        $this->assertDatabaseHas('users',$userData );
+        unset($this->userData['password_confirmation'], $this->userData['password']);
+        $this->assertDatabaseHas('users',$this->userData );
+    }
+
+    public function testUserCanCreateAdminAccount()
+    {
+        $response = $this->post(route('api.v1.registration'), $this->userData);
+        $response->assertStatus(201);
+        unset($this->userData['password_confirmation'], $this->userData['password']);
+        $this->assertDatabaseHas('users',$this->userData );
     }
 
     public function testUserCanLogin()

@@ -8,6 +8,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @property boolean $is_admin
+ * @property string $name
+ * @property string $email
+ * @property string $type
+ */
 class User extends Authenticatable
 {
     Public const TYPE_PRO = 'PROFESSIONAL';
@@ -25,6 +31,7 @@ class User extends Authenticatable
         'name',
         'email',
         'type',
+        'is_admin',
         'password',
     ];
 
@@ -46,4 +53,5 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
 }
