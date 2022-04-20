@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthenticationController;
+use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\EventTypeController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,11 +25,21 @@ Route::prefix('v1')->group(function () {
 
         Route::prefix('event-type')->group(function () {
             Route::get('/', [EventTypeController::class, 'index'])->name('api.v1.event_type-index');
-            Route::middleware('isAdmin')->group(function (){
+            Route::middleware('isAdmin')->group(function () {
                 Route::post('/', [EventTypeController::class, 'store'])->name('api.v1.event_type-store');
                 Route::patch('/{eventType}', [EventTypeController::class, 'update'])->name('api.v1.event_type-update');
                 Route::delete('/{eventType}', [EventTypeController::class, 'destroy'])->name('api.v1.event_type-destroy');
             });
+        });
+        Route::prefix('company')->group(function () {
+            Route::get('/', [CompanyController::class, 'index'])->middleware('isAdmin')->name('api.v1.company-index');
+            Route::post('/', [CompanyController::class, 'store'])->middleware('isProUserOrAdmin')->name('api.v1.company-store');
+            Route::middleware('isCompanyOwnerOrAdmin')->group(function () {
+                Route::patch('/{company}', [CompanyController::class, 'update'])->name('api.v1.company-update');
+                Route::get('/{company}', [CompanyController::class, 'show'])->name('api.v1.company-show');
+                Route::delete('/{company}', [CompanyController::class, 'destroy'])->name('api.v1.company-destroy');
+            });
+
         });
     });
 });

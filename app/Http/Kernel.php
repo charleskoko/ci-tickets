@@ -2,7 +2,9 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\EnsureCompanyOwner;
 use App\Http\Middleware\EnsureUserIsAdmin;
+use App\Http\Middleware\EnsureUserIsPro;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -65,5 +67,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'isAdmin' => EnsureUserIsAdmin::class,
+        'isProUserOrAdmin' => EnsureUserIsPro::class,
+        'isCompanyOwnerOrAdmin' => EnsureCompanyOwner::class
     ];
 }
