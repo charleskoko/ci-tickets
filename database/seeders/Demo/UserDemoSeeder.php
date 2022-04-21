@@ -40,6 +40,5 @@ class UserDemoSeeder extends Seeder
             'password' => Hash::make('12345678'),
             'type' => User::TYPE_PRO
         ]);
-        User::factory(10)->create();
     }
 }

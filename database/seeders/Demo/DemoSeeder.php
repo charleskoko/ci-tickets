@@ -13,6 +13,6 @@ class DemoSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([UserDemoSeeder::class, EventTypeDemoSeeder::class]);
+        $this->call([UserDemoSeeder::class, EventTypeDemoSeeder::class, CompanyDemoSeeder::class]);
     }
 }
