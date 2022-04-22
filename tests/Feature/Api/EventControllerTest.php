@@ -4,6 +4,7 @@ namespace Tests\Feature\Api;
 
 use App\Models\Company;
 use App\Models\Event;
+use App\Models\EventType;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -38,7 +39,8 @@ class EventControllerTest extends TestCase
 
     public function testUserCanSeeAllEvent()
     {
-        Event::factory(10)->create();
+        EventType::factory(10)->create();
+        Event::factory(10)->create(['company_id' => Company::factory()->create()->id]);
         Sanctum::actingAs($this->normalUser);
         $response = $this->get(route('api.v1.event-index'));
         $response->assertStatus(200);
@@ -47,6 +49,7 @@ class EventControllerTest extends TestCase
 
     public function testUserCanCreateEvent()
     {
+        EventType::factory(10)->create();
         $user = $this->faker->randomElement([$this->companyOwner, $this->adminUser]);
         $company = Company::factory()->create(['is_active' => true]);
         $user->company()->associate($company);
@@ -67,6 +70,7 @@ class EventControllerTest extends TestCase
 
     public function testUserCanUpdateEvent()
     {
+        EventType::factory(10)->create();
         $company = Company::factory()->create(['is_active' => true]);
         $this->companyOwner->company()->associate($company);
         $event = Event::factory()->create(['company_id' => $company->id]);
@@ -86,6 +90,7 @@ class EventControllerTest extends TestCase
 
     public function testUserCanDeleteEvent()
     {
+        EventType::factory(10)->create();
         $company = Company::factory()->create(['is_active' => true]);
         $this->companyOwner->company()->associate($company);
         Sanctum::actingAs($this->companyOwner);

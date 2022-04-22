@@ -21,7 +21,6 @@ class EnsureUserCanCreateEvent
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-        dd('Ensure user can create event');
         $userCompany = $user->company;
         if (($userCompany != null && $userCompany->is_active) || ($user->is_admin)) {
             return $next($request);

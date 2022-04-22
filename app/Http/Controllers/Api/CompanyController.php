@@ -8,8 +8,6 @@ use App\Http\Resources\CompanyResource;
 use App\Models\Company;
 use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends Controller

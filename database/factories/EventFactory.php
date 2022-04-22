@@ -30,8 +30,8 @@ class EventFactory extends Factory
             'site' => $this->faker->locale,
             'date' => $this->faker->dateTimeBetween(Carbon::now(), Carbon::now()->addDays(30)),
             'available_places' => random_int(100, 4000),
-            'event_type_id' => EventType::factory()->create()->id,
-            'company_id' => Company::factory()->create()->id
+            'event_type_id' => EventType::inRandomOrder()->first()->id,
+            'company_id' => Company::inRandomOrder()->first()->id,
         ];
     }
 }

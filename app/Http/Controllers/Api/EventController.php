@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EventPostRequest;
 use App\Http\Resources\EventResource;
-use App\Models\Company;
 use App\Models\Event;
-use App\Models\EventType;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\Auth;
 
