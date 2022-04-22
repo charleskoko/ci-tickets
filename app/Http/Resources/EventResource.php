@@ -23,7 +23,8 @@ class EventResource extends JsonResource
             'site' => $event->site,
             'date' => $event->date,
             'available_places' => $event->available_places,
-            'company' => CompanyResource::make($event->company)
+            'company' => CompanyResource::make($event->company),
+            'eventType' => EventTypeResource::make($event->eventType)
         ];
     }
 }

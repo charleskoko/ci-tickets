@@ -16,11 +16,12 @@ class Event extends Model
         'site',
         'date',
         'available_places',
+        'event_type_id'
     ];
 
     public function eventType(): BelongsTo
     {
-        return $this->belongsTo(EventType::class, 'event_id', 'id');
+        return $this->belongsTo(EventType::class, 'event_type_id', 'id');
     }
 
     public function company()

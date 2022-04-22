@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthenticationController;
 use App\Http\Controllers\Api\CompanyController;
+use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\EventTypeController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,11 +36,18 @@ Route::prefix('v1')->group(function () {
             Route::get('/', [CompanyController::class, 'index'])->middleware('isAdmin')->name('api.v1.company-index');
             Route::post('/', [CompanyController::class, 'store'])->middleware('isProUserOrAdmin')->name('api.v1.company-store');
             Route::middleware('isCompanyOwnerOrAdmin')->group(function () {
-                Route::patch('/{company}', [CompanyController::class, 'update'])->name('api.v1.company-update');
-                Route::get('/{company}', [CompanyController::class, 'show'])->name('api.v1.company-show');
-                Route::delete('/{company}', [CompanyController::class, 'destroy'])->name('api.v1.company-destroy');
+                Route::prefix('{company}')->group(function () {
+                    Route::patch('/', [CompanyController::class, 'update'])->name('api.v1.company-update');
+                    Route::get('/', [CompanyController::class, 'show'])->name('api.v1.company-show');
+                    Route::delete('/', [CompanyController::class, 'destroy'])->name('api.v1.company-destroy');
+                });
             });
-
+        });
+        Route::prefix('event')->group(function () {
+            Route::get('/', [EventController::class, 'index'])->name('api.v1.event-index');
+            Route::post('/', [EventController::class, 'store'])->name('api.v1.event-store');
+            Route::patch('/{event}', [EventController::class, 'update'])->name('api.v1.event-update');
+            Route::delete('/{event}', [EventController::class, 'destroy'])->name('api.v1.event-destroy');
         });
     });
 });

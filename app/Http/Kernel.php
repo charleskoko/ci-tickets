@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\EnsureCompanyOwner;
+use App\Http\Middleware\EnsureUserCanCreateEvent;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\EnsureUserIsPro;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -68,6 +69,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'isAdmin' => EnsureUserIsAdmin::class,
         'isProUserOrAdmin' => EnsureUserIsPro::class,
-        'isCompanyOwnerOrAdmin' => EnsureCompanyOwner::class
+        'isCompanyOwnerOrAdmin' => EnsureCompanyOwner::class,
+        'isCompanyActiveOrUserAdmin' => EnsureUserCanCreateEvent::class
     ];
 }
