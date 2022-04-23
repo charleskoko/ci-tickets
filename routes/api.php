@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthenticationController;
 use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\EventController;
+use App\Http\Controllers\Api\EventTicketTemplateController;
 use App\Http\Controllers\Api\EventTypeController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +49,11 @@ Route::prefix('v1')->group(function () {
             Route::post('/', [EventController::class, 'store'])->name('api.v1.event-store');
             Route::patch('/{event}', [EventController::class, 'update'])->name('api.v1.event-update');
             Route::delete('/{event}', [EventController::class, 'destroy'])->name('api.v1.event-destroy');
+            Route::post('/{event}/eventTicketTemplate', [EventTicketTemplateController::class, 'store'])->name('api.v1.eventTicketTemplate-store');
+            Route::get('/{event}/eventTicketTemplate', [EventTicketTemplateController::class, 'index'])->name('api.v1.eventTicketTemplate-index');
+            Route::get('eventTicketTemplate/{eventTicketTemplate}', [EventTicketTemplateController::class, 'show'])->name('api.v1.eventTicketTemplate-show');
+            Route::patch('eventTicketTemplate/{eventTicketTemplate}', [EventTicketTemplateController::class, 'update'])->name('api.v1.eventTicketTemplate-update');
+            Route::delete('eventTicketTemplate/{eventTicketTemplate}', [EventTicketTemplateController::class, 'destroy'])->name('api.v1.eventTicketTemplate-destroy');
         });
     });
 });
