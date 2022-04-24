@@ -16,11 +16,11 @@ class EventTypeController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return JsonResponse
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(): JsonResponse
+    public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        return $this->success(['event_types' => EventTypeResource::collection(EventType::all())], 'Successfully ', 200);
+        return EventTypeResource::collection(EventType::all());
     }
 
 

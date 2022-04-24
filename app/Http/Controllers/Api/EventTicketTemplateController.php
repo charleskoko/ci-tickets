@@ -15,7 +15,7 @@ class EventTicketTemplateController extends Controller
 
     public function index(Event $event)
     {
-        return $this->success(['eventTicketTemplates' => EventTicketTemplateResource::collection($event->eventTicketTemplates)], 'successfully loaded', 200);
+        return EventTicketTemplateResource::collection($event->eventTicketTemplates);
     }
 
 

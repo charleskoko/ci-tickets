@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,12 +20,12 @@ class EventResource extends JsonResource
         return [
             'id' => $event->id,
             'name' => $event->name,
-            'description' => $event->description,
+            'description' => substr($event->description,0,100).'...',
             'site' => $event->site,
-            'date' => $event->date,
+            'date' => Carbon::parse($event->date)->toDateString(),
             'available_places' => $event->available_places,
             'company' => CompanyResource::make($event->company),
-            'eventType' => EventTypeResource::make($event->eventType)
+            'eventType' => $event->eventType->label
         ];
     }
 }

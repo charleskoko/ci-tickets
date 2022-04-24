@@ -21,12 +21,13 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
     Route::post('/registration', [AuthenticationController::class, 'registration'])->name('api.v1.registration');
     Route::post('/login', [AuthenticationController::class, 'login'])->name('api.v1.login');
+    Route::get('/events', [EventController::class, 'index'])->name('api.v1.event-index');
+    Route::get('/event-types', [EventTypeController::class, 'index'])->name('api.v1.event_type-index');
 
     Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('logout', [AuthenticationController::class, 'logout'])->name('api.v1.logout');
 
         Route::prefix('event-type')->group(function () {
-            Route::get('/', [EventTypeController::class, 'index'])->name('api.v1.event_type-index');
             Route::middleware('isAdmin')->group(function () {
                 Route::post('/', [EventTypeController::class, 'store'])->name('api.v1.event_type-store');
                 Route::patch('/{eventType}', [EventTypeController::class, 'update'])->name('api.v1.event_type-update');
@@ -45,7 +46,6 @@ Route::prefix('v1')->group(function () {
             });
         });
         Route::prefix('event')->group(function () {
-            Route::get('/', [EventController::class, 'index'])->name('api.v1.event-index');
             Route::post('/', [EventController::class, 'store'])->name('api.v1.event-store');
             Route::patch('/{event}', [EventController::class, 'update'])->name('api.v1.event-update');
             Route::delete('/{event}', [EventController::class, 'destroy'])->name('api.v1.event-destroy');

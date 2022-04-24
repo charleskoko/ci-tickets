@@ -21,7 +21,7 @@ class EventTypeResource extends JsonResource
         return [
             'id'=> $eventType->id,
             'label' => $eventType->label,
-            'description' => $eventType->description
+            'description' => substr($eventType->description,0,100).'...'
         ];
     }
 }

@@ -15,7 +15,7 @@ class EventController extends Controller
 
     public function index()
     {
-        return $this->success(['events' => Event::all()],'successfully loaded', 200);
+        return EventResource::collection(Event::paginate(10));
     }
 
 

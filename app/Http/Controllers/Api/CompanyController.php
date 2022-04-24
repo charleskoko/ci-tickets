@@ -17,11 +17,11 @@ class CompanyController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return JsonResponse
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(): JsonResponse
+    public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        return $this->success(['companies' => CompanyResource::collection(Company::all())], 'successfully loaded', '200');
+        return CompanyResource::collection(Company::paginate(10));
     }
 
 

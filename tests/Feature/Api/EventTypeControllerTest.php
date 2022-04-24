@@ -77,8 +77,6 @@ class EventTypeControllerTest extends TestCase
         $response = $this->get(route('api.v1.event_type-index'));
         $response->assertStatus(200);
         $response->assertJsonStructure([
-            'status',
-            'message',
             'data'
         ]);
     }
